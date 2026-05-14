@@ -9,39 +9,24 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: system-ui, sans-serif; color: #1a1a1a; overflow-x: hidden; }
 
-    /* HEADER */
     .navbar {
       background: #2e7d32;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 24px;
+      padding: 10px 24px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .logo { display: flex; align-items: center; gap: 10px; }
     .logo-img {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       object-fit: contain;
-      border-radius: 6px;
       background: white;
-      padding: 4px;
-    }
-    .logo-svg {
-      width: 48px;
-      height: 48px;
-      background: white;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      border-radius: 8px;
+      padding: 5px;
     }
     .logo-text h1 { color: white; font-size: 17px; font-weight: 600; }
     .logo-text p { color: rgba(255,255,255,0.8); font-size: 11px; letter-spacing: 0.5px; }
@@ -59,7 +44,6 @@
     .nav-links button:hover { background: rgba(255,255,255,0.15); }
     .nav-links button.active { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
 
-    /* HERO */
     .hero {
       background: linear-gradient(135deg, #388e3c, #1b5e20);
       color: white;
@@ -78,11 +62,7 @@
       margin-top: 10px;
     }
 
-    /* SLIDER */
-    .slider-wrapper {
-      overflow: hidden;
-      width: 100%;
-    }
+    .slider-wrapper { overflow: hidden; width: 100%; }
     .slider-track {
       display: flex;
       width: 300%;
@@ -102,12 +82,8 @@
       font-weight: 600;
       margin-bottom: 24px;
       color: #1b5e20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    /* PROMOTIONS */
     .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
     .promo-card { background: white; border-radius: 10px; border: 1px solid #e0e0e0; overflow: hidden; }
     .promo-emoji { font-size: 34px; padding: 18px; text-align: center; background: #f1f8e9; }
@@ -117,7 +93,6 @@
     .promo-remise { display: inline-block; background: #e8f5e9; color: #1b5e20; font-size: 11px; padding: 2px 9px; border-radius: 10px; font-weight: 600; }
     .loading { color: #999; font-size: 13px; font-style: italic; }
 
-    /* SERVICES */
     .services-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; }
     .service-item {
       display: flex;
@@ -129,7 +104,7 @@
       padding: 16px 18px;
     }
     .service-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
-    .service-nom { font-size: 14px; font-weight: 600; margin-bottom: 3px; color: #1a1a1a; }
+    .service-nom { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
     .service-desc { font-size: 12px; color: #666; line-height: 1.5; }
     .service-badge {
       display: inline-block;
@@ -145,7 +120,6 @@
     .badge-dpd { background: #f3e5f5; color: #4a148c; }
     .badge-food { background: #e8f5e9; color: #1b5e20; }
 
-    /* HORAIRES */
     .horaires-container { max-width: 480px; }
     .horaire-row {
       display: flex;
@@ -158,10 +132,7 @@
       margin-bottom: 8px;
       font-size: 14px;
     }
-    .horaire-row.today {
-      border-color: #2e7d32;
-      background: #f1f8e9;
-    }
+    .horaire-row.today { border-color: #2e7d32; background: #f1f8e9; }
     .horaire-jour { color: #444; }
     .horaire-row.today .horaire-jour { color: #1b5e20; font-weight: 600; }
     .horaire-time { font-weight: 600; color: #2e7d32; }
@@ -174,7 +145,6 @@
       margin-left: 8px;
     }
 
-    /* DOTS */
     .dots {
       display: flex;
       justify-content: center;
@@ -192,7 +162,6 @@
     }
     .dot.active { background: #2e7d32; transform: scale(1.3); }
 
-    /* FOOTER */
     footer {
       background: #1b5e20;
       color: white;
@@ -209,18 +178,9 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="logo">
-    <div class="logo-svg">
-      <svg viewBox="0 0 48 48" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="48" height="48" rx="6" fill="white"/>
-        <path d="M8 16h13l-4 8H8V16z" fill="#009de0"/>
-        <path d="M40 16H27l4 8h9V16z" fill="#e52222"/>
-        <path d="M17 16l4 8 3-5 3 5 4-8H17z" fill="#007a33"/>
-        <text x="24" y="38" text-anchor="middle" font-size="7" font-weight="bold" fill="#007a33" font-family="system-ui">CITY</text>
-      </svg>
-    </div>
+    <img src="LOGO_Carrefour-City.jpg" alt="Logo Carrefour City" class="logo-img">
     <div class="logo-text">
       <h1>Carrefour City</h1>
       <p>1 Avenue de Muret</p>
@@ -233,13 +193,11 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <h2>Votre superette de quartier</h2>
   <div class="hero-addr">📍 1 Avenue de Muret — Ouvert 7j/7</div>
 </div>
 
-<!-- SLIDER -->
 <div class="slider-wrapper">
   <div class="slider-track" id="sliderTrack">
 
@@ -304,21 +262,18 @@
     <!-- PAGE 3 : HORAIRES -->
     <div class="slide">
       <div class="section-title">🕐 Horaires d'ouverture</div>
-      <div class="horaires-container" id="horaires-container">
-      </div>
+      <div class="horaires-container" id="horaires-container"></div>
     </div>
 
   </div>
 </div>
 
-<!-- DOTS -->
 <div class="dots">
   <div class="dot active" onclick="goTo(0)"></div>
   <div class="dot" onclick="goTo(1)"></div>
   <div class="dot" onclick="goTo(2)"></div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div><strong>Carrefour City</strong> — 1 Avenue de Muret</div>
   <div style="display:flex;gap:16px;">
@@ -332,10 +287,7 @@
   const SUPABASE_ANON_KEY = 'sb_publishable_hSl9pLjg65dX2gbQ3niW_g_AHlW0_sC';
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  let current = 0;
-
   function goTo(index) {
-    current = index;
     document.getElementById('sliderTrack').style.transform = `translateX(-${index * 100 / 3}%)`;
     document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
     document.querySelectorAll('.nav-links button').forEach((b, i) => b.classList.toggle('active', i === index));
@@ -377,14 +329,12 @@
       { jour: 'Samedi',   heure: '7h00 – 22h00' },
       { jour: 'Dimanche', heure: '9h00 – 20h00' },
     ];
-    const container = document.getElementById('horaires-container');
-    container.innerHTML = horaires.map(h => {
+    document.getElementById('horaires-container').innerHTML = horaires.map(h => {
       const isToday = h.jour === todayCapital;
       return `
         <div class="horaire-row ${isToday ? 'today' : ''}">
           <span class="horaire-jour">
-            ${h.jour}
-            ${isToday ? '<span class="today-badge">Aujourd\'hui</span>' : ''}
+            ${h.jour}${isToday ? '<span class="today-badge">Aujourd\'hui</span>' : ''}
           </span>
           <span class="horaire-time">${h.heure}</span>
         </div>
