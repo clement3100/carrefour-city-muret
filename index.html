@@ -13,13 +13,12 @@
       background: #2e7d32;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 10px 24px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
-    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .logo-img {
       width: 52px;
       height: 52px;
@@ -30,59 +29,82 @@
     }
     .logo-text h1 { color: white; font-size: 17px; font-weight: 600; }
     .logo-text p { color: rgba(255,255,255,0.8); font-size: 11px; letter-spacing: 0.5px; }
-    .nav-links { display: flex; gap: 4px; }
-    .nav-links button {
-      color: white;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.25);
-      font-size: 13px;
-      padding: 7px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .nav-links button:hover { background: rgba(255,255,255,0.15); }
-    .nav-links button.active { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
 
     .hero {
       background: linear-gradient(135deg, #388e3c, #1b5e20);
       color: white;
       text-align: center;
-      padding: 44px 24px;
+      padding: 48px 24px;
     }
-    .hero h2 { font-size: 26px; font-weight: 500; margin-bottom: 8px; }
-    .hero-addr {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      padding: 7px 18px;
-      font-size: 13px;
-      margin-top: 10px;
+    .hero h2 { font-size: 26px; font-weight: 600; margin-bottom: 14px; }
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 0.92;
     }
 
     .slider-wrapper { overflow: hidden; width: 100%; }
     .slider-track {
       display: flex;
-      width: 300%;
+      width: 400%;
       transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .slide {
-      width: calc(100% / 3);
-      min-height: 400px;
-      padding: 36px 24px;
+      width: calc(100% / 4);
+      min-height: 460px;
+      padding: 40px 24px;
       flex-shrink: 0;
+      background: #f4f4f4;
     }
-    .slide:nth-child(odd) { background: #f8f8f8; }
     .slide:nth-child(even) { background: white; }
 
-    .section-title {
-      font-size: 19px;
-      font-weight: 600;
-      margin-bottom: 24px;
-      color: #1b5e20;
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 860px;
+      margin: 0 auto;
     }
+    .home-card {
+      background: white;
+      border-radius: 16px;
+      border: 1.5px solid #e0e0e0;
+      padding: 48px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+    .home-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+      border-color: #2e7d32;
+    }
+    .home-card-icon { font-size: 52px; margin-bottom: 18px; }
+    .home-card-title { font-size: 20px; font-weight: 700; color: #1b5e20; margin-bottom: 6px; }
+    .home-card-sub { font-size: 13px; color: #999; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .back-btn {
+      background: #e8f5e9;
+      border: none;
+      color: #1b5e20;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .back-btn:hover { background: #c8e6c9; }
+    .section-title { font-size: 20px; font-weight: 700; color: #1b5e20; }
 
     .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
     .promo-card { background: white; border-radius: 10px; border: 1px solid #e0e0e0; overflow: hidden; }
@@ -93,7 +115,7 @@
     .promo-remise { display: inline-block; background: #e8f5e9; color: #1b5e20; font-size: 11px; padding: 2px 9px; border-radius: 10px; font-weight: 600; }
     .loading { color: #999; font-size: 13px; font-style: italic; }
 
-    .services-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; }
+    .services-list { display: flex; flex-direction: column; gap: 12px; max-width: 640px; }
     .service-item {
       display: flex;
       align-items: flex-start;
@@ -119,6 +141,7 @@
     .badge-colissimo { background: #fce4ec; color: #880e4f; }
     .badge-dpd { background: #f3e5f5; color: #4a148c; }
     .badge-food { background: #e8f5e9; color: #1b5e20; }
+    .badge-print { background: #e8eaf6; color: #1a237e; }
 
     .horaires-container { max-width: 480px; }
     .horaire-row {
@@ -133,9 +156,12 @@
       font-size: 14px;
     }
     .horaire-row.today { border-color: #2e7d32; background: #f1f8e9; }
+    .horaire-row.special { border-color: #ff8f00; background: #fff8e1; }
     .horaire-jour { color: #444; }
     .horaire-row.today .horaire-jour { color: #1b5e20; font-weight: 600; }
+    .horaire-row.special .horaire-jour { color: #e65100; font-weight: 600; }
     .horaire-time { font-weight: 600; color: #2e7d32; }
+    .horaire-row.special .horaire-time { color: #e65100; }
     .today-badge {
       font-size: 10px;
       background: #2e7d32;
@@ -144,23 +170,15 @@
       border-radius: 8px;
       margin-left: 8px;
     }
-
-    .dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 20px 0 10px;
-      background: #f8f8f8;
+    .horaire-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #fff8e1;
+      border-radius: 8px;
+      border-left: 3px solid #ff8f00;
     }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ccc;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .dot.active { background: #2e7d32; transform: scale(1.3); }
 
     footer {
       background: #1b5e20;
@@ -179,31 +197,54 @@
 <body>
 
 <nav class="navbar">
-  <div class="logo">
+  <div class="logo" onclick="goTo(0)">
     <img src="LOGO_Carrefour-City.jpg" alt="Logo Carrefour City" class="logo-img">
     <div class="logo-text">
       <h1>Carrefour City</h1>
       <p>1 Avenue de Muret</p>
     </div>
   </div>
-  <div class="nav-links">
-    <button class="active" onclick="goTo(0)">Promotions</button>
-    <button onclick="goTo(1)">Services</button>
-    <button onclick="goTo(2)">Horaires</button>
-  </div>
 </nav>
 
 <div class="hero">
   <h2>Votre superette de quartier</h2>
-  <div class="hero-addr">📍 1 Avenue de Muret — Ouvert 7j/7</div>
+  <p class="hero-desc">
+    Votre magasin de proximité dédié aux courses du quotidien. Retrouvez des produits frais et de qualité.
+    Des grandes marques et des solutions repas rapides dans un espace pensé pour la simplicité et l'efficacité.
+    Profitez d'un service agréable et rapide au cœur de votre quartier.
+  </p>
 </div>
 
 <div class="slider-wrapper">
   <div class="slider-track" id="sliderTrack">
 
+    <!-- PAGE 0 : ACCUEIL -->
+    <div class="slide">
+      <div class="cards-grid">
+        <div class="home-card" onclick="goTo(1)">
+          <div class="home-card-icon">🏷️</div>
+          <div class="home-card-title">Promotions</div>
+          <div class="home-card-sub">Les offres de la semaine</div>
+        </div>
+        <div class="home-card" onclick="goTo(2)">
+          <div class="home-card-icon">📦</div>
+          <div class="home-card-title">Services</div>
+          <div class="home-card-sub">Colis, livraison, impression…</div>
+        </div>
+        <div class="home-card" onclick="goTo(3)">
+          <div class="home-card-icon">🕐</div>
+          <div class="home-card-title">Horaires</div>
+          <div class="home-card-sub">Ouvert 7j/7</div>
+        </div>
+      </div>
+    </div>
+
     <!-- PAGE 1 : PROMOTIONS -->
     <div class="slide">
-      <div class="section-title">🏷️ Promotions de la semaine</div>
+      <div class="section-header">
+        <button class="back-btn" onclick="goTo(0)">← Accueil</button>
+        <div class="section-title">🏷️ Promotions de la semaine</div>
+      </div>
       <div class="promo-grid" id="promo-container">
         <p class="loading">Chargement des promotions...</p>
       </div>
@@ -211,7 +252,10 @@
 
     <!-- PAGE 2 : SERVICES -->
     <div class="slide">
-      <div class="section-title">📦 Nos services</div>
+      <div class="section-header">
+        <button class="back-btn" onclick="goTo(0)">← Accueil</button>
+        <div class="section-title">📦 Nos services</div>
+      </div>
       <div class="services-list">
         <div class="service-item">
           <div class="service-icon">🔒</div>
@@ -256,22 +300,27 @@
             <span class="service-badge badge-food">Produits frais</span>
           </div>
         </div>
+        <div class="service-item">
+          <div class="service-icon">🖨️</div>
+          <div>
+            <div class="service-nom">Impression de documents</div>
+            <div class="service-desc">Imprimez vos documents directement en magasin, rapidement et à petit prix.</div>
+            <span class="service-badge badge-print">Impression</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- PAGE 3 : HORAIRES -->
     <div class="slide">
-      <div class="section-title">🕐 Horaires d'ouverture</div>
+      <div class="section-header">
+        <button class="back-btn" onclick="goTo(0)">← Accueil</button>
+        <div class="section-title">🕐 Horaires d'ouverture</div>
+      </div>
       <div class="horaires-container" id="horaires-container"></div>
     </div>
 
   </div>
-</div>
-
-<div class="dots">
-  <div class="dot active" onclick="goTo(0)"></div>
-  <div class="dot" onclick="goTo(1)"></div>
-  <div class="dot" onclick="goTo(2)"></div>
 </div>
 
 <footer>
@@ -288,9 +337,7 @@
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   function goTo(index) {
-    document.getElementById('sliderTrack').style.transform = `translateX(-${index * 100 / 3}%)`;
-    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
-    document.querySelectorAll('.nav-links button').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.getElementById('sliderTrack').style.transform = `translateX(-${index * 25}%)`;
   }
 
   const emojisCategorie = {
@@ -321,25 +368,25 @@
     const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long' });
     const todayCapital = today.charAt(0).toUpperCase() + today.slice(1);
     const horaires = [
-      { jour: 'Lundi',    heure: '7h00 – 22h00' },
-      { jour: 'Mardi',    heure: '7h00 – 22h00' },
-      { jour: 'Mercredi', heure: '7h00 – 22h00' },
-      { jour: 'Jeudi',    heure: '7h00 – 22h00' },
-      { jour: 'Vendredi', heure: '7h00 – 22h00' },
-      { jour: 'Samedi',   heure: '7h00 – 22h00' },
-      { jour: 'Dimanche', heure: '9h00 – 20h00' },
+      { jour: 'Lundi',    heure: '7h00 – 22h00', special: false },
+      { jour: 'Mardi',    heure: '7h00 – 22h00', special: false },
+      { jour: 'Mercredi', heure: '7h00 – 22h00', special: false },
+      { jour: 'Jeudi',    heure: '7h00 – 22h00', special: false },
+      { jour: 'Vendredi', heure: '7h00 – 22h00', special: false },
+      { jour: 'Samedi',   heure: '7h00 – 22h00', special: false },
+      { jour: 'Dimanche & jour férié', heure: '9h00 – 20h00', special: true },
     ];
     document.getElementById('horaires-container').innerHTML = horaires.map(h => {
-      const isToday = h.jour === todayCapital;
+      const isToday = h.jour.startsWith(todayCapital);
       return `
-        <div class="horaire-row ${isToday ? 'today' : ''}">
+        <div class="horaire-row ${isToday ? 'today' : ''} ${h.special ? 'special' : ''}">
           <span class="horaire-jour">
             ${h.jour}${isToday ? '<span class="today-badge">Aujourd\'hui</span>' : ''}
           </span>
           <span class="horaire-time">${h.heure}</span>
         </div>
       `;
-    }).join('');
+    }).join('') + `<div class="horaire-note">🗓️ Les horaires des jours fériés peuvent varier. Consultez notre magasin pour plus d'informations.</div>`;
   }
 
   loadPromos();
