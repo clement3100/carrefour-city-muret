@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrefour City — 1 Avenue de Muret</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; color: #1a1a1a; }
+
+    .topbar { background: #1b5e20; color: rgba(255,255,255,0.85); padding: 8px 24px; display: flex; justify-content: space-between; font-size: 13px; }
+    .navbar { background: #2e7d32; display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 42px; height: 42px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 28px; height: 28px; }
+    .logo-text h1 { color: white; font-size: 18px; font-weight: 500; }
+    .logo-text p { color: rgba(255,255,255,0.8); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a { color: white; text-decoration: none; font-size: 14px; padding: 7px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); transition: background 0.15s; }
+    .nav-links a:hover { background: rgba(255,255,255,0.2); }
+
+    .hero { background: linear-gradient(135deg, #388e3c, #1b5e20); color: white; text-align: center; padding: 52px 24px; }
+    .hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 8px; }
+    .hero p { font-size: 15px; opacity: 0.9; margin-bottom: 20px; }
+    .hero-addr { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 7px 18px; font-size: 13px; }
+
+    section { padding: 36px 24px; }
+    section.alt { background: #f8f8f8; }
+    .section-title { font-size: 18px; font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #e0e0e0; }
+
+    .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    .promo-card { background: white; border-radius: 10px; border: 1px solid #e8e8e8; overflow: hidden; }
+    .promo-emoji { font-size: 36px; padding: 20px; text-align: center; background: #f1f8e9; }
+    .promo-body { padding: 12px; }
+    .promo-titre { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .promo-desc { font-size: 12px; color: #666; margin-bottom: 8px; }
+    .promo-remise { display: inline-block; background: #e8f5e9; color: #1b5e20; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .service-card { background: white; border-radius: 10px; border: 1px solid #e8e8e8; padding: 18px 14px; text-align: center; }
+    .service-icon { font-size: 28px; margin-bottom: 10px; }
+    .service-nom { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .service-desc { font-size: 12px; color: #666; }
+
+    .horaires-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 500px; }
+    .horaire-row { display: flex; justify-content: space-between; padding: 10px 14px; background: white; border-radius: 8px; border: 1px solid #e8e8e8; font-size: 13px; }
+    .horaire-row.today { border-color: #2e7d32; background: #f1f8e9; }
+    .horaire-jour { color: #555; }
+    .horaire-row.today .horaire-jour { color: #1b5e20; font-weight: 500; }
+    .horaire-time { font-weight: 500; color: #2e7d32; }
+
+    footer { background: #1b5e20; color: white; padding: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: white; }
+    .loading { color: #999; font-size: 13px; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>📍 1 Avenue de Muret</span>
+  <span>🕐 Aujourd'hui : 8h00 – 21h30</span>
+</div>
+<nav class="navbar">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="11" fill="#2e7d32"/>
+        <circle cx="14" cy="14" r="5" fill="white"/>
+        <line x1="14" y1="3" x2="14" y2="8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="14" y1="20" x2="14" y2="25" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="14" x2="8" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="20" y1="14" x2="25" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <h1>Carrefour City</h1>
+      <p>1 Avenue de Muret</p>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#accueil">Accueil</a>
+    <a href="#promotions">Promotions</a>
+    <a href="#services">Services</a>
+    <a href="#horaires">Horaires</a>
+  </div>
+</nav>
+
+<div class="hero" id="accueil">
+  <h2>Votre superette de quartier</h2>
+  <p>Fraîcheur, proximité et bons prix — chaque jour</p>
+  <div class="hero-addr">📍 1 Avenue de Muret — Ouvert 7j/7</div>
+</div>
+
+<section class="alt" id="promotions">
+  <div class="section-title">🏷️ Promotions de la semaine</div>
+  <div class="promo-grid" id="promo-container">
+    <p class="loading">Chargement des promotions...</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-title">⭐ Nos services</div>
+  <div class="services-grid" id="services-container">
+    <p class="loading">Chargement des services...</p>
+  </div>
+</section>
+
+<section class="alt" id="horaires">
+  <div class="section-title">🕐 Horaires d'ouverture</div>
+  <div class="horaires-grid" id="horaires-container">
+    <p class="loading">Chargement des horaires...</p>
+  </div>
+</section>
+
+<footer>
+  <div><strong>Carrefour City</strong> — 1 Avenue de Muret</div>
+  <div style="display:flex;gap:16px;">
+    <a href="#">Mentions légales</a>
+    <a href="#">Contact</a>
+    <a href="#">Plan d'accès</a>
+  </div>
+</footer>
+
+<script>
+  const SUPABASE_URL = 'https://xtuydfuipjjexhnvhauq.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_hSl9pLjg65dX2gbQ3niW_g_AHlW0_sC';
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long' });
+  const todayCapital = today.charAt(0).toUpperCase() + today.slice(1);
+  const emojisCategorie = { 'Fruits': '🍓', 'Boucherie': '🥩', 'Boissons': '🥤', 'Épicerie': '🥫', 'Fromagerie': '🧀', 'Boulangerie': '🥖' };
+  const emojisService = { 'truck-delivery': '🚚', 'credit-card': '💳', 'cash': '💵', 'scan': '📱', 'news': '📰', 'map': '📍' };
+
+  async function loadPromos() {
+    const { data, error } = await client.from('promotions').select('*');
+    const container = document.getElementById('promo-container');
+    if (error || !data || data.length === 0) {
+      container.innerHTML = '<p class="loading">Aucune promotion pour le moment.</p>';
+      return;
+    }
+    container.innerHTML = data.map(p => `
+      <div class="promo-card">
+        <div class="promo-emoji">${emojisCategorie[p.categorie] || '🛒'}</div>
+        <div class="promo-body">
+          <div class="promo-titre">${p.titre}</div>
+          <div class="promo-desc">${p.description}</div>
+          <span class="promo-remise">${p.remise}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function loadServices() {
+    const { data, error } = await client.from('services').select('*');
+    const container = document.getElementById('services-container');
+    if (error || !data || data.length === 0) {
+      container.innerHTML = '<p class="loading">Aucun service renseigné.</p>';
+      return;
+    }
+    container.innerHTML = data.map(s => `
+      <div class="service-card">
+        <div class="service-icon">${emojisService[s.icone] || '⭐'}</div>
+        <div class="service-nom">${s.nom}</div>
+        <div class="service-desc">${s.description}</div>
+      </div>
+    `).join('');
+  }
+
+  async function loadHoraires() {
+    const { data, error } = await client.from('horaires').select('*');
+    const container = document.getElementById('horaires-container');
+    if (error || !data || data.length === 0) {
+      container.innerHTML = '<p class="loading">Horaires bientôt disponibles.</p>';
+      return;
+    }
+    container.innerHTML = data.map(h => `
+      <div class="horaire-row ${h.jour === todayCapital ? 'today' : ''}">
+        <span class="horaire-jour">${h.jour}${h.jour === todayCapital ? ' ✦' : ''}</span>
+        <span class="horaire-time">${h.ouverture} – ${h.fermeture}</span>
+      </div>
+    `).join('');
+  }
+
+  loadPromos();
+  loadServices();
+  loadHoraires();
+</script>
+</body>
+</html>
