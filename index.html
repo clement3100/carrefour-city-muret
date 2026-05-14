@@ -7,72 +7,218 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; color: #1a1a1a; }
+    body { font-family: system-ui, sans-serif; color: #1a1a1a; overflow-x: hidden; }
 
-    .topbar { background: #1b5e20; color: rgba(255,255,255,0.85); padding: 8px 24px; display: flex; justify-content: space-between; font-size: 13px; }
-    .navbar { background: #2e7d32; display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo-icon { width: 42px; height: 42px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-    .logo-icon svg { width: 28px; height: 28px; }
-    .logo-text h1 { color: white; font-size: 18px; font-weight: 500; }
-    .logo-text p { color: rgba(255,255,255,0.8); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-    .nav-links { display: flex; gap: 6px; }
-    .nav-links a { color: white; text-decoration: none; font-size: 14px; padding: 7px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); transition: background 0.15s; }
-    .nav-links a:hover { background: rgba(255,255,255,0.2); }
+    /* HEADER */
+    .navbar {
+      background: #2e7d32;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: white;
+      padding: 4px;
+    }
+    .logo-svg {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-text h1 { color: white; font-size: 17px; font-weight: 600; }
+    .logo-text p { color: rgba(255,255,255,0.8); font-size: 11px; letter-spacing: 0.5px; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links button {
+      color: white;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .nav-links button:hover { background: rgba(255,255,255,0.15); }
+    .nav-links button.active { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
 
-    .hero { background: linear-gradient(135deg, #388e3c, #1b5e20); color: white; text-align: center; padding: 52px 24px; }
-    .hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 8px; }
-    .hero p { font-size: 15px; opacity: 0.9; margin-bottom: 20px; }
-    .hero-addr { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 7px 18px; font-size: 13px; }
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #388e3c, #1b5e20);
+      color: white;
+      text-align: center;
+      padding: 44px 24px;
+    }
+    .hero h2 { font-size: 26px; font-weight: 500; margin-bottom: 8px; }
+    .hero-addr {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 7px 18px;
+      font-size: 13px;
+      margin-top: 10px;
+    }
 
-    section { padding: 36px 24px; }
-    section.alt { background: #f8f8f8; }
-    .section-title { font-size: 18px; font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-    .section-title::after { content: ''; flex: 1; height: 1px; background: #e0e0e0; }
+    /* SLIDER */
+    .slider-wrapper {
+      overflow: hidden;
+      width: 100%;
+    }
+    .slider-track {
+      display: flex;
+      width: 300%;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .slide {
+      width: calc(100% / 3);
+      min-height: 400px;
+      padding: 36px 24px;
+      flex-shrink: 0;
+    }
+    .slide:nth-child(odd) { background: #f8f8f8; }
+    .slide:nth-child(even) { background: white; }
 
+    .section-title {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #1b5e20;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* PROMOTIONS */
     .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-    .promo-card { background: white; border-radius: 10px; border: 1px solid #e8e8e8; overflow: hidden; }
-    .promo-emoji { font-size: 36px; padding: 20px; text-align: center; background: #f1f8e9; }
+    .promo-card { background: white; border-radius: 10px; border: 1px solid #e0e0e0; overflow: hidden; }
+    .promo-emoji { font-size: 34px; padding: 18px; text-align: center; background: #f1f8e9; }
     .promo-body { padding: 12px; }
-    .promo-titre { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .promo-titre { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
     .promo-desc { font-size: 12px; color: #666; margin-bottom: 8px; }
-    .promo-remise { display: inline-block; background: #e8f5e9; color: #1b5e20; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+    .promo-remise { display: inline-block; background: #e8f5e9; color: #1b5e20; font-size: 11px; padding: 2px 9px; border-radius: 10px; font-weight: 600; }
+    .loading { color: #999; font-size: 13px; font-style: italic; }
 
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-    .service-card { background: white; border-radius: 10px; border: 1px solid #e8e8e8; padding: 18px 14px; text-align: center; }
-    .service-icon { font-size: 28px; margin-bottom: 10px; }
-    .service-nom { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-    .service-desc { font-size: 12px; color: #666; }
+    /* SERVICES */
+    .services-list { display: flex; flex-direction: column; gap: 12px; max-width: 600px; }
+    .service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      padding: 16px 18px;
+    }
+    .service-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+    .service-nom { font-size: 14px; font-weight: 600; margin-bottom: 3px; color: #1a1a1a; }
+    .service-desc { font-size: 12px; color: #666; line-height: 1.5; }
+    .service-badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+    .badge-relay { background: #e3f2fd; color: #0d47a1; }
+    .badge-chrono { background: #fff3e0; color: #e65100; }
+    .badge-colissimo { background: #fce4ec; color: #880e4f; }
+    .badge-dpd { background: #f3e5f5; color: #4a148c; }
+    .badge-food { background: #e8f5e9; color: #1b5e20; }
 
-    .horaires-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 500px; }
-    .horaire-row { display: flex; justify-content: space-between; padding: 10px 14px; background: white; border-radius: 8px; border: 1px solid #e8e8e8; font-size: 13px; }
-    .horaire-row.today { border-color: #2e7d32; background: #f1f8e9; }
-    .horaire-jour { color: #555; }
-    .horaire-row.today .horaire-jour { color: #1b5e20; font-weight: 500; }
-    .horaire-time { font-weight: 500; color: #2e7d32; }
+    /* HORAIRES */
+    .horaires-container { max-width: 480px; }
+    .horaire-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .horaire-row.today {
+      border-color: #2e7d32;
+      background: #f1f8e9;
+    }
+    .horaire-jour { color: #444; }
+    .horaire-row.today .horaire-jour { color: #1b5e20; font-weight: 600; }
+    .horaire-time { font-weight: 600; color: #2e7d32; }
+    .today-badge {
+      font-size: 10px;
+      background: #2e7d32;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 8px;
+      margin-left: 8px;
+    }
 
-    footer { background: #1b5e20; color: white; padding: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; }
+    /* DOTS */
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px 0 10px;
+      background: #f8f8f8;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.active { background: #2e7d32; transform: scale(1.3); }
+
+    /* FOOTER */
+    footer {
+      background: #1b5e20;
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+    }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: white; }
-    .loading { color: #999; font-size: 13px; font-style: italic; }
   </style>
 </head>
 <body>
 
-<div class="topbar">
-  <span>📍 1 Avenue de Muret</span>
-  <span>🕐 Aujourd'hui : 8h00 – 21h30</span>
-</div>
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="11" fill="#2e7d32"/>
-        <circle cx="14" cy="14" r="5" fill="white"/>
-        <line x1="14" y1="3" x2="14" y2="8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="14" y1="20" x2="14" y2="25" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="3" y1="14" x2="8" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="20" y1="14" x2="25" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <div class="logo-svg">
+      <svg viewBox="0 0 48 48" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="6" fill="white"/>
+        <path d="M8 16h13l-4 8H8V16z" fill="#009de0"/>
+        <path d="M40 16H27l4 8h9V16z" fill="#e52222"/>
+        <path d="M17 16l4 8 3-5 3 5 4-8H17z" fill="#007a33"/>
+        <text x="24" y="38" text-anchor="middle" font-size="7" font-weight="bold" fill="#007a33" font-family="system-ui">CITY</text>
       </svg>
     </div>
     <div class="logo-text">
@@ -81,46 +227,103 @@
     </div>
   </div>
   <div class="nav-links">
-    <a href="#accueil">Accueil</a>
-    <a href="#promotions">Promotions</a>
-    <a href="#services">Services</a>
-    <a href="#horaires">Horaires</a>
+    <button class="active" onclick="goTo(0)">Promotions</button>
+    <button onclick="goTo(1)">Services</button>
+    <button onclick="goTo(2)">Horaires</button>
   </div>
 </nav>
 
-<div class="hero" id="accueil">
+<!-- HERO -->
+<div class="hero">
   <h2>Votre superette de quartier</h2>
-  <p>Fraîcheur, proximité et bons prix — chaque jour</p>
   <div class="hero-addr">📍 1 Avenue de Muret — Ouvert 7j/7</div>
 </div>
 
-<section class="alt" id="promotions">
-  <div class="section-title">🏷️ Promotions de la semaine</div>
-  <div class="promo-grid" id="promo-container">
-    <p class="loading">Chargement des promotions...</p>
-  </div>
-</section>
+<!-- SLIDER -->
+<div class="slider-wrapper">
+  <div class="slider-track" id="sliderTrack">
 
-<section id="services">
-  <div class="section-title">⭐ Nos services</div>
-  <div class="services-grid" id="services-container">
-    <p class="loading">Chargement des services...</p>
-  </div>
-</section>
+    <!-- PAGE 1 : PROMOTIONS -->
+    <div class="slide">
+      <div class="section-title">🏷️ Promotions de la semaine</div>
+      <div class="promo-grid" id="promo-container">
+        <p class="loading">Chargement des promotions...</p>
+      </div>
+    </div>
 
-<section class="alt" id="horaires">
-  <div class="section-title">🕐 Horaires d'ouverture</div>
-  <div class="horaires-grid" id="horaires-container">
-    <p class="loading">Chargement des horaires...</p>
-  </div>
-</section>
+    <!-- PAGE 2 : SERVICES -->
+    <div class="slide">
+      <div class="section-title">📦 Nos services</div>
+      <div class="services-list">
+        <div class="service-item">
+          <div class="service-icon">🔒</div>
+          <div>
+            <div class="service-nom">Dépôt &amp; retrait de colis — Mondial Relay</div>
+            <div class="service-desc">Locker disponible en magasin pour déposer ou récupérer vos colis Mondial Relay.</div>
+            <span class="service-badge badge-relay">Mondial Relay</span>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">📬</div>
+          <div>
+            <div class="service-nom">Retrait de colis — Chronopost, Colissimo, DPD</div>
+            <div class="service-desc">Retirez vos colis Chronopost, Colissimo et DPD directement en magasin.</div>
+            <span class="service-badge badge-chrono">Chronopost</span>
+            <span class="service-badge badge-colissimo" style="margin-left:4px">Colissimo</span>
+            <span class="service-badge badge-dpd" style="margin-left:4px">DPD</span>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">📤</div>
+          <div>
+            <div class="service-nom">Dépôt de colis — Chronopost</div>
+            <div class="service-desc">Déposez vos colis Chronopost en magasin sans vous déplacer en bureau de poste.</div>
+            <span class="service-badge badge-chrono">Chronopost</span>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">🍔</div>
+          <div>
+            <div class="service-nom">Préparation de commandes — Uber Eats &amp; Deliveroo</div>
+            <div class="service-desc">Commandez vos courses en livraison à domicile via Uber Eats et Deliveroo.</div>
+            <span class="service-badge badge-food">Uber Eats</span>
+            <span class="service-badge badge-food" style="margin-left:4px">Deliveroo</span>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">❄️</div>
+          <div>
+            <div class="service-nom">Retrait de colis alimentaires frais</div>
+            <div class="service-desc">Récupérez vos commandes alimentaires fraîches directement en magasin.</div>
+            <span class="service-badge badge-food">Produits frais</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- PAGE 3 : HORAIRES -->
+    <div class="slide">
+      <div class="section-title">🕐 Horaires d'ouverture</div>
+      <div class="horaires-container" id="horaires-container">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DOTS -->
+<div class="dots">
+  <div class="dot active" onclick="goTo(0)"></div>
+  <div class="dot" onclick="goTo(1)"></div>
+  <div class="dot" onclick="goTo(2)"></div>
+</div>
+
+<!-- FOOTER -->
 <footer>
   <div><strong>Carrefour City</strong> — 1 Avenue de Muret</div>
   <div style="display:flex;gap:16px;">
     <a href="#">Mentions légales</a>
     <a href="#">Contact</a>
-    <a href="#">Plan d'accès</a>
   </div>
 </footer>
 
@@ -129,10 +332,19 @@
   const SUPABASE_ANON_KEY = 'sb_publishable_hSl9pLjg65dX2gbQ3niW_g_AHlW0_sC';
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long' });
-  const todayCapital = today.charAt(0).toUpperCase() + today.slice(1);
-  const emojisCategorie = { 'Fruits': '🍓', 'Boucherie': '🥩', 'Boissons': '🥤', 'Épicerie': '🥫', 'Fromagerie': '🧀', 'Boulangerie': '🥖' };
-  const emojisService = { 'truck-delivery': '🚚', 'credit-card': '💳', 'cash': '💵', 'scan': '📱', 'news': '📰', 'map': '📍' };
+  let current = 0;
+
+  function goTo(index) {
+    current = index;
+    document.getElementById('sliderTrack').style.transform = `translateX(-${index * 100 / 3}%)`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
+    document.querySelectorAll('.nav-links button').forEach((b, i) => b.classList.toggle('active', i === index));
+  }
+
+  const emojisCategorie = {
+    'Fruits': '🍓', 'Boucherie': '🥩', 'Boissons': '🥤',
+    'Épicerie': '🥫', 'Fromagerie': '🧀', 'Boulangerie': '🥖'
+  };
 
   async function loadPromos() {
     const { data, error } = await client.from('promotions').select('*');
@@ -153,40 +365,35 @@
     `).join('');
   }
 
-  async function loadServices() {
-    const { data, error } = await client.from('services').select('*');
-    const container = document.getElementById('services-container');
-    if (error || !data || data.length === 0) {
-      container.innerHTML = '<p class="loading">Aucun service renseigné.</p>';
-      return;
-    }
-    container.innerHTML = data.map(s => `
-      <div class="service-card">
-        <div class="service-icon">${emojisService[s.icone] || '⭐'}</div>
-        <div class="service-nom">${s.nom}</div>
-        <div class="service-desc">${s.description}</div>
-      </div>
-    `).join('');
-  }
-
-  async function loadHoraires() {
-    const { data, error } = await client.from('horaires').select('*');
+  function buildHoraires() {
+    const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long' });
+    const todayCapital = today.charAt(0).toUpperCase() + today.slice(1);
+    const horaires = [
+      { jour: 'Lundi',    heure: '7h00 – 22h00' },
+      { jour: 'Mardi',    heure: '7h00 – 22h00' },
+      { jour: 'Mercredi', heure: '7h00 – 22h00' },
+      { jour: 'Jeudi',    heure: '7h00 – 22h00' },
+      { jour: 'Vendredi', heure: '7h00 – 22h00' },
+      { jour: 'Samedi',   heure: '7h00 – 22h00' },
+      { jour: 'Dimanche', heure: '9h00 – 20h00' },
+    ];
     const container = document.getElementById('horaires-container');
-    if (error || !data || data.length === 0) {
-      container.innerHTML = '<p class="loading">Horaires bientôt disponibles.</p>';
-      return;
-    }
-    container.innerHTML = data.map(h => `
-      <div class="horaire-row ${h.jour === todayCapital ? 'today' : ''}">
-        <span class="horaire-jour">${h.jour}${h.jour === todayCapital ? ' ✦' : ''}</span>
-        <span class="horaire-time">${h.ouverture} – ${h.fermeture}</span>
-      </div>
-    `).join('');
+    container.innerHTML = horaires.map(h => {
+      const isToday = h.jour === todayCapital;
+      return `
+        <div class="horaire-row ${isToday ? 'today' : ''}">
+          <span class="horaire-jour">
+            ${h.jour}
+            ${isToday ? '<span class="today-badge">Aujourd\'hui</span>' : ''}
+          </span>
+          <span class="horaire-time">${h.heure}</span>
+        </div>
+      `;
+    }).join('');
   }
 
   loadPromos();
-  loadServices();
-  loadHoraires();
+  buildHoraires();
 </script>
 </body>
 </html>
