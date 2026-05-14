@@ -60,30 +60,34 @@
     }
     .slide:nth-child(even) { background: white; }
 
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 860px;
+    /* CARTES VERTICALES */
+    .cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 500px;
       margin: 0 auto;
     }
     .home-card {
       background: white;
-      border-radius: 16px;
+      border-radius: 14px;
       border: 1.5px solid #e0e0e0;
-      padding: 48px 20px;
-      text-align: center;
+      padding: 28px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
       cursor: pointer;
       transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
     }
     .home-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+      transform: translateX(6px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.09);
       border-color: #2e7d32;
     }
-    .home-card-icon { font-size: 52px; margin-bottom: 18px; }
-    .home-card-title { font-size: 20px; font-weight: 700; color: #1b5e20; margin-bottom: 6px; }
+    .home-card-icon { font-size: 40px; flex-shrink: 0; }
+    .home-card-title { font-size: 19px; font-weight: 700; color: #1b5e20; margin-bottom: 4px; }
     .home-card-sub { font-size: 13px; color: #999; }
+    .home-card-arrow { margin-left: auto; font-size: 20px; color: #ccc; flex-shrink: 0; }
 
     .section-header {
       display: flex;
@@ -156,12 +160,9 @@
       font-size: 14px;
     }
     .horaire-row.today { border-color: #2e7d32; background: #f1f8e9; }
-    .horaire-row.special { border-color: #ff8f00; background: #fff8e1; }
     .horaire-jour { color: #444; }
     .horaire-row.today .horaire-jour { color: #1b5e20; font-weight: 600; }
-    .horaire-row.special .horaire-jour { color: #e65100; font-weight: 600; }
     .horaire-time { font-weight: 600; color: #2e7d32; }
-    .horaire-row.special .horaire-time { color: #e65100; }
     .today-badge {
       font-size: 10px;
       background: #2e7d32;
@@ -170,28 +171,74 @@
       border-radius: 8px;
       margin-left: 8px;
     }
-    .horaire-note {
-      font-size: 12px;
-      color: #888;
-      margin-top: 12px;
-      padding: 10px 14px;
-      background: #fff8e1;
-      border-radius: 8px;
-      border-left: 3px solid #ff8f00;
-    }
 
+    /* FOOTER */
     footer {
       background: #1b5e20;
       color: white;
       padding: 20px 24px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       gap: 10px;
       font-size: 13px;
+      position: relative;
     }
-    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
-    footer a:hover { color: white; }
+
+    /* CONTACT POPUP */
+    .contact-wrap { position: relative; }
+    .contact-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .contact-btn:hover { background: rgba(255,255,255,0.25); }
+    .contact-popup {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e0e0e0;
+      padding: 18px 20px;
+      min-width: 280px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transform: translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .contact-popup.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .contact-popup-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1b5e20;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e8f5e9;
+      padding-bottom: 8px;
+    }
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .contact-line:last-child { margin-bottom: 0; }
+    .contact-line-icon { font-size: 18px; flex-shrink: 0; }
+    .contact-line a { color: #1b5e20; text-decoration: none; font-weight: 500; }
+    .contact-line a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -220,21 +267,30 @@
 
     <!-- PAGE 0 : ACCUEIL -->
     <div class="slide">
-      <div class="cards-grid">
+      <div class="cards-list">
         <div class="home-card" onclick="goTo(1)">
           <div class="home-card-icon">🏷️</div>
-          <div class="home-card-title">Promotions</div>
-          <div class="home-card-sub">Les offres de la semaine</div>
+          <div>
+            <div class="home-card-title">Promotions</div>
+            <div class="home-card-sub">Les offres de la semaine</div>
+          </div>
+          <div class="home-card-arrow">›</div>
         </div>
         <div class="home-card" onclick="goTo(2)">
           <div class="home-card-icon">📦</div>
-          <div class="home-card-title">Services</div>
-          <div class="home-card-sub">Colis, livraison, impression…</div>
+          <div>
+            <div class="home-card-title">Services</div>
+            <div class="home-card-sub">Colis, livraison, impression…</div>
+          </div>
+          <div class="home-card-arrow">›</div>
         </div>
         <div class="home-card" onclick="goTo(3)">
           <div class="home-card-icon">🕐</div>
-          <div class="home-card-title">Horaires</div>
-          <div class="home-card-sub">Ouvert 7j/7</div>
+          <div>
+            <div class="home-card-title">Horaires</div>
+            <div class="home-card-sub">Ouvert 7j/7</div>
+          </div>
+          <div class="home-card-arrow">›</div>
         </div>
       </div>
     </div>
@@ -325,9 +381,19 @@
 
 <footer>
   <div><strong>Carrefour City</strong> — 1 Avenue de Muret</div>
-  <div style="display:flex;gap:16px;">
-    <a href="#">Mentions légales</a>
-    <a href="#">Contact</a>
+  <div class="contact-wrap">
+    <button class="contact-btn" onclick="toggleContact()">📞 Contact</button>
+    <div class="contact-popup" id="contactPopup">
+      <div class="contact-popup-title">Nous contacter</div>
+      <div class="contact-line">
+        <span class="contact-line-icon">📞</span>
+        <a href="tel:0561110621">05 61 11 06 21</a>
+      </div>
+      <div class="contact-line">
+        <span class="contact-line-icon">✉️</span>
+        <a href="mailto:dimitri_roussilhe_1@franchise.carrefour.com">dimitri_roussilhe_1@franchise.carrefour.com</a>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -338,7 +404,19 @@
 
   function goTo(index) {
     document.getElementById('sliderTrack').style.transform = `translateX(-${index * 25}%)`;
+    document.getElementById('contactPopup').classList.remove('open');
   }
+
+  function toggleContact() {
+    document.getElementById('contactPopup').classList.toggle('open');
+  }
+
+  document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.contact-wrap');
+    if (!wrap.contains(e.target)) {
+      document.getElementById('contactPopup').classList.remove('open');
+    }
+  });
 
   const emojisCategorie = {
     'Fruits': '🍓', 'Boucherie': '🥩', 'Boissons': '🥤',
@@ -368,25 +446,25 @@
     const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long' });
     const todayCapital = today.charAt(0).toUpperCase() + today.slice(1);
     const horaires = [
-      { jour: 'Lundi',    heure: '7h00 – 22h00', special: false },
-      { jour: 'Mardi',    heure: '7h00 – 22h00', special: false },
-      { jour: 'Mercredi', heure: '7h00 – 22h00', special: false },
-      { jour: 'Jeudi',    heure: '7h00 – 22h00', special: false },
-      { jour: 'Vendredi', heure: '7h00 – 22h00', special: false },
-      { jour: 'Samedi',   heure: '7h00 – 22h00', special: false },
-      { jour: 'Dimanche & jour férié', heure: '9h00 – 20h00', special: true },
+      { jour: 'Lundi',                  heure: '7h00 – 22h00' },
+      { jour: 'Mardi',                  heure: '7h00 – 22h00' },
+      { jour: 'Mercredi',               heure: '7h00 – 22h00' },
+      { jour: 'Jeudi',                  heure: '7h00 – 22h00' },
+      { jour: 'Vendredi',               heure: '7h00 – 22h00' },
+      { jour: 'Samedi',                 heure: '7h00 – 22h00' },
+      { jour: 'Dimanche & jour férié',  heure: '9h00 – 20h00' },
     ];
     document.getElementById('horaires-container').innerHTML = horaires.map(h => {
       const isToday = h.jour.startsWith(todayCapital);
       return `
-        <div class="horaire-row ${isToday ? 'today' : ''} ${h.special ? 'special' : ''}">
+        <div class="horaire-row ${isToday ? 'today' : ''}">
           <span class="horaire-jour">
             ${h.jour}${isToday ? '<span class="today-badge">Aujourd\'hui</span>' : ''}
           </span>
           <span class="horaire-time">${h.heure}</span>
         </div>
       `;
-    }).join('') + `<div class="horaire-note">🗓️ Les horaires des jours fériés peuvent varier. Consultez notre magasin pour plus d'informations.</div>`;
+    }).join('');
   }
 
   loadPromos();
