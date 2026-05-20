@@ -127,14 +127,25 @@
     .back-btn:hover { background: #c8e6c9; }
     .section-title { font-size: 20px; font-weight: 700; color: #1b5e20; }
 
-    .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .promo-section-title { font-size: 15px; font-weight: 700; color: #1b5e20; margin-bottom: 14px; }
     .promo-card { background: white; border-radius: 10px; border: 1px solid #e0e0e0; overflow: hidden; }
-    .promo-emoji { font-size: 34px; padding: 18px; text-align: center; background: #f1f8e9; }
-    .promo-body { padding: 12px; }
-    .promo-titre { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-    .promo-desc { font-size: 12px; color: #666; margin-bottom: 8px; }
+    .promo-emoji { font-size: 30px; padding: 14px; text-align: center; background: #f1f8e9; }
+    .promo-body { padding: 10px 12px; }
+    .promo-titre { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+    .promo-desc { font-size: 11px; color: #666; margin-bottom: 7px; }
     .promo-remise { display: inline-block; background: #e8f5e9; color: #1b5e20; font-size: 11px; padding: 2px 9px; border-radius: 10px; font-weight: 600; }
-    .loading { color: #999; font-size: 13px; font-style: italic; }
+
+    .club-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .club-card { background: white; border-radius: 10px; border: 1px solid #e0e0e0; padding: 16px; }
+    .club-icon { font-size: 26px; margin-bottom: 8px; }
+    .club-title { font-size: 13px; font-weight: 700; color: #1b5e20; margin-bottom: 5px; }
+    .club-desc { font-size: 12px; color: #666; line-height: 1.5; }
+
+    .qr-block { display: flex; align-items: center; gap: 20px; background: white; border-radius: 12px; border: 1px solid #e0e0e0; padding: 18px 20px; max-width: 480px; }
+    .qr-img { width: 110px; height: 110px; border-radius: 8px; flex-shrink: 0; }
+    .qr-title { font-size: 14px; font-weight: 700; color: #1b5e20; margin-bottom: 6px; }
+    .qr-desc { font-size: 12px; color: #666; line-height: 1.6; }
 
     .services-list { display: flex; flex-direction: column; gap: 12px; max-width: 640px; }
     .service-item {
@@ -306,14 +317,94 @@
       </div>
     </div>
 
-    <!-- PAGE 1 : PROMOTIONS -->
+    <!-- PAGE 1 : PROMOTIONS & FIDELITE -->
     <div class="slide">
       <div class="section-header">
         <button class="back-btn" onclick="goTo(0)">← Accueil</button>
-        <div class="section-title">🏷️ Promotions de la semaine</div>
+        <div class="section-title">🏷️ Promotions & Fidélité</div>
       </div>
-      <div class="promo-grid" id="promo-container">
-        <p class="loading">Chargement des promotions...</p>
+
+      <!-- PROMOTIONS -->
+      <div class="promo-section-title">🔥 Promotions de la semaine</div>
+      <div class="promo-grid">
+        <div class="promo-card">
+          <div class="promo-emoji">🍓</div>
+          <div class="promo-body">
+            <div class="promo-titre">Fruits & Légumes</div>
+            <div class="promo-desc">Fraises Gariguette 500g</div>
+            <span class="promo-remise">−30%</span>
+          </div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-emoji">🥩</div>
+          <div class="promo-body">
+            <div class="promo-titre">Boucherie</div>
+            <div class="promo-desc">Poulet entier Label Rouge</div>
+            <span class="promo-remise">−20%</span>
+          </div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-emoji">🥛</div>
+          <div class="promo-body">
+            <div class="promo-titre">Produits laitiers</div>
+            <div class="promo-desc">Yaourts nature x8 Danone</div>
+            <span class="promo-remise">−25%</span>
+          </div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-emoji">🥖</div>
+          <div class="promo-body">
+            <div class="promo-titre">Boulangerie</div>
+            <div class="promo-desc">Baguette tradition</div>
+            <span class="promo-remise">−10%</span>
+          </div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-emoji">🧃</div>
+          <div class="promo-body">
+            <div class="promo-titre">Boissons</div>
+            <div class="promo-desc">Jus d'orange 1L Tropicana</div>
+            <span class="promo-remise">2 pour 1</span>
+          </div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-emoji">🧀</div>
+          <div class="promo-body">
+            <div class="promo-titre">Fromagerie</div>
+            <div class="promo-desc">Emmental râpé 400g</div>
+            <span class="promo-remise">−15%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARTE CLUB -->
+      <div class="promo-section-title" style="margin-top:28px;">💳 Carte Club Carrefour</div>
+      <div class="club-grid">
+        <div class="club-card">
+          <div class="club-icon">⭐</div>
+          <div class="club-title">Points fidélité</div>
+          <div class="club-desc">Cumulez des points à chaque achat et obtenez des bons de réduction.</div>
+        </div>
+        <div class="club-card">
+          <div class="club-icon">🎁</div>
+          <div class="club-title">Offres exclusives</div>
+          <div class="club-desc">Profitez d'offres réservées aux membres Club Carrefour chaque semaine.</div>
+        </div>
+        <div class="club-card">
+          <div class="club-icon">📱</div>
+          <div class="club-title">Appli Carrefour</div>
+          <div class="club-desc">Gérez votre carte, consultez vos points et trouvez les promos en temps réel.</div>
+        </div>
+      </div>
+
+      <!-- QR CODE -->
+      <div class="promo-section-title" style="margin-top:28px;">📲 Télécharger l'application</div>
+      <div class="qr-block">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://www.carrefour.fr/application-mobile" alt="QR Code appli Carrefour" class="qr-img">
+        <div class="qr-text">
+          <div class="qr-title">Application Carrefour</div>
+          <div class="qr-desc">Scannez ce QR code pour télécharger l'appli et accéder à votre carte Club, vos points et toutes les promotions.</div>
+        </div>
       </div>
     </div>
 
@@ -464,7 +555,6 @@
     }).join('');
   }
 
-  loadPromos();
   buildHoraires();
 
   // Afficher les horaires du jour dans la navbar
