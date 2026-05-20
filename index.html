@@ -271,7 +271,7 @@
         <div class="home-card" onclick="goTo(1)">
           <div class="home-card-icon">🏷️</div>
           <div>
-            <div class="home-card-title">Promotions</div>
+            <div class="home-card-title">Promotions & Fidélité</div>
             <div class="home-card-sub">Les offres de la semaine</div>
           </div>
           <div class="home-card-arrow">›</div>
@@ -382,7 +382,7 @@
 <footer>
   <div><strong>Carrefour City</strong> — 1 Avenue de Muret</div>
   <div class="contact-wrap">
-    <button class="contact-btn" onclick="toggleContact()">📞 Contact</button>
+    <button class="contact-btn" onclick="toggleContact()">Contact</button>
     <div class="contact-popup" id="contactPopup">
       <div class="contact-popup-title">Nous contacter</div>
       <div class="contact-line">
@@ -444,7 +444,7 @@
 
   function buildHoraires() {
     const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long' });
-    const todayCapital = today.charAt(0).toUpperCase() + today.slice(1);
+    const todayCapital = today.charAt(0).toUpperCase() + today.slice(1).toLowerCase();
     const horaires = [
       { jour: 'Lundi',                  heure: '7h00 – 22h00' },
       { jour: 'Mardi',                  heure: '7h00 – 22h00' },
