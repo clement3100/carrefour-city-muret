@@ -6,7 +6,7 @@
   <title>Carrefour City — 1 Avenue de Muret</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; font-family: system-ui, sans-serif; color: #1a1a1a; }
+    html, body { height: 100%; font-family: system-ui, sans-serif; color: #1a1a1a; }
 
     /* NAVBAR */
     .navbar {
@@ -40,19 +40,16 @@
     .slider-outer {
       width: 100%;
       overflow: hidden;
-      /* hauteur = 100vh - navbar - hero - footer */
-      height: calc(100vh - 72px - 140px - 54px);
+      min-height: 500px;
     }
     .slider-track {
       display: flex;
       width: 400vw;
-      height: 100%;
       transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .slide {
       width: 100vw;
-      height: 100%;
-      overflow-y: auto;
+      min-height: 500px;
       padding: 32px 28px;
       flex-shrink: 0;
       background: #f5f5f5;
